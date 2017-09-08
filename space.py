@@ -1,30 +1,27 @@
 import arcade
+from models import *
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
 
 class SpaceGameWindow(arcade.Window):
-    i = 0
+
     def __init__(self, width, height):
         super().__init__(width, height)
 
         arcade.set_background_color(arcade.color.BLACK)
+        self.ship_sprite = arcade.Sprite('images/ship.png')
 
-        self.ship = arcade.Sprite('images/ship.png')
-        self.ship.set_position(width/2,height/6)
+        self.world = World(width,height)
 
     def on_draw(self):
         arcade.start_render()
-
-        self.ship.draw()
+        self.ship_sprite.draw()
 
     def update(self, delta):
-        ship = self.ship
-        if ship.center_y > SCREEN_HEIGHT:
-            ship.center_y = 0
-        self.ship.set_position(self.ship.center_x,self.ship.center_y+delta*SpaceGameWindow.i)
-        SpaceGameWindow.i+=1
+        self.world.update(delta)
+        self.ship_sprite.set_position(self.world.ship.x,self.world.ship.y)
 
 if __name__ == '__main__':
-    window = SpaceGameWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
+    window = SpaceGameWindow(int(SCREEN_WIDTH/2), SCREEN_HEIGHT)
     arcade.run()
