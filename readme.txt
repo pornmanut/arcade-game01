@@ -1,4 +1,5 @@
-Hello this is my test file to present how to git this file to the world
+Python 3.6 -w Arcade-Library
 
+My first Project with python and learn abount how to use git to save or share our file to use in cloud
 
-Testing with modifiy file add new line
+#readme.txt
