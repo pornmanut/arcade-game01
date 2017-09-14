@@ -29,13 +29,15 @@ class SpaceGameWindow(arcade.Window):
         super().__init__(width, height)
 
         arcade.set_background_color(arcade.color.BLACK)
-        self.ship_sprite = arcade.Sprite('images/ship.png')
+
 
         self.world = World(width,height)
         self.ship_sprite = ModelSprite('images/ship.png',model=self.world.ship)
+        self.gold_sprite = ModelSprite('images/gold.png',model=self.world.gold)
 
     def on_draw(self):
         arcade.start_render()
+        self.gold_sprite.draw()
         self.ship_sprite.draw()
 
     def update(self, delta):
