@@ -24,17 +24,29 @@ class Snake:
         self.direction = DIR_RIGHT
         self.wait_time = 0
 
+    def out_of_edge(self):
+
+        if(self.x > self.world.width):
+            self.x = 0
+        elif(self.x < 0):
+            self.x = self.world.width
+        elif(self.y > self.world.height):
+            self.y = 0
+        elif(self.y < 0):
+            self.y = self.world.height
     def update(self,delta):
         self.wait_time += delta
 
         if self.wait_time < Snake.MOVE_WAIT:
             return
 
-        if(self.x > self.world.width):
-            self.x = 0
+        self.out_of_edge()
 
         self.x += self.BLOCK_SIZE*DIR_OFFSET[self.direction][0]
         self.y += self.BLOCK_SIZE*DIR_OFFSET[self.direction][1]
+
+        self.body.insert(0,(self.x,self.y))
+        self.body.pop()
         self.wait_time = 0
 
 class World:

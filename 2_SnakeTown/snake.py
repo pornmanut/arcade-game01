@@ -24,6 +24,8 @@ class ModelSprite(arcade.Sprite):
         self.sync_with_model()
         super().draw()
 
+
+
 class snakeWindow(arcade.Window):
     def __init__(self,width,height):
         super().__init__(width,height)
