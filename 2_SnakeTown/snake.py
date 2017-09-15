@@ -2,6 +2,16 @@ import arcade
 from models import *
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
+class SnakeSprite:
+    def __init__(self,snake):
+        self.snake = snake
+        self.block_sprite = arcade.Sprite('images/block.png')
+
+    def draw(self):
+
+        for x,y in self.snake.body:
+            self.block_sprite.set_position(x,y)
+            self.block_sprite.draw()
 
 class ModelSprite(arcade.Sprite):
     def __init__(self,*args,**kwargs):
@@ -20,8 +30,9 @@ class snakeWindow(arcade.Window):
         arcade.set_background_color(arcade.color.RICH_BRILLIANT_LAVENDER)
 
         self.world = World(SCREEN_WIDTH,SCREEN_HEIGHT)
-        self.snake_sprite = ModelSprite('images/block.png',model=self.world.snake)
-        self.snake_sprite.set_position(300,300)
+        self.snake_sprite = SnakeSprite(self.world.snake)
+        #self.snake_sprite = ModelSprite('images/block.png',model=self.world.snake)
+        #self.snake_sprite.set_position(300,300)
 
     def on_key_press(self,key,key_modifiers):
         self.world.on_key_press(key,key_modifiers)
