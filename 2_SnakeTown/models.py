@@ -1,3 +1,5 @@
+import arcade.key
+
 DIR_UP = 1
 DIR_RIGHT = 2
 DIR_DOWN = 3
@@ -11,7 +13,6 @@ DIR_OFFSET = {DIR_UP:(0,1),
 class Snake:
     BLOCK_SIZE = 16
     MOVE_WAIT = 0.2
-    MOVE_SPEED = 16
     def __init__(self,world,x,y):
         self.world = world
         self.x = x
@@ -28,8 +29,9 @@ class Snake:
 
         if(self.x > self.world.width):
             self.x = 0
-        self.x += self.MOVE_SPEED*DIR_OFFSET[self.direction][0]
-        self.y += self.MOVE_SPEED*DIR_OFFSET[self.direction][1]
+
+        self.x += self.BLOCK_SIZE*DIR_OFFSET[self.direction][0]
+        self.y += self.BLOCK_SIZE*DIR_OFFSET[self.direction][1]
         self.wait_time = 0
 
 class World:
@@ -37,5 +39,17 @@ class World:
         self.width = width
         self.height = height
         self.snake = Snake(self,width//2,height//2)
+
+    def on_key_press(self,key,key_modifiers):
+        if(key == arcade.key.UP):
+            self.snake.direction = DIR_UP
+        if(key == arcade.key.RIGHT):
+            self.snake.direction = DIR_RIGHT
+        if(key == arcade.key.DOWN):
+            self.snake.direction = DIR_DOWN
+        if(key == arcade.key.LEFT):
+            self.snake.direction = DIR_LEFT
+
+
     def update(self,delta):
         self.snake.update(delta)
