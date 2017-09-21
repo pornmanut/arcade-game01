@@ -44,6 +44,11 @@ class Snake:
     def is_can_eat(self,Heart):
         if(self.x == Heart.x and self.y == Heart.y):
             return True
+    def is_eat_myself(self):
+        for my_body in self.body[1:]:
+            if(self.body[0] == my_body):
+                self.length -= 1
+                return True
 
     def out_of_edge(self):
 
@@ -57,7 +62,6 @@ class Snake:
             self.y = self.world.height
     def update(self,delta):
         self.wait_time += delta
-
         if self.wait_time < Snake.MOVE_WAIT:
             return
 
@@ -68,6 +72,9 @@ class Snake:
 
         self.body.insert(0,(self.x,self.y))
         self.body.pop()
+        if(self.is_eat_myself()):
+            self.body.pop()
+            print(self.length)
         self.wait_time = 0
 
 class World:
