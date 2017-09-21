@@ -33,6 +33,7 @@ class snakeWindow(arcade.Window):
 
         self.world = World(SCREEN_WIDTH,SCREEN_HEIGHT)
         self.snake_sprite = SnakeSprite(self.world.snake)
+        self.heart_sprite = ModelSprite('images/heart.png',model=self.world.heart);
         #self.snake_sprite = ModelSprite('images/block.png',model=self.world.snake)
         #self.snake_sprite.set_position(300,300)
 
@@ -45,6 +46,7 @@ class snakeWindow(arcade.Window):
     def on_draw(self):
         arcade.start_render()
         self.snake_sprite.draw()
+        self.heart_sprite.draw()
 
 def main():
     window = snakeWindow(SCREEN_WIDTH,SCREEN_HEIGHT)

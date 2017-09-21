@@ -1,4 +1,5 @@
 import arcade.key
+from random import randint
 
 DIR_UP = 1
 DIR_RIGHT = 2
@@ -66,7 +67,7 @@ class World:
         self.snake = Snake(self,width//2,height//2)
         self.heart = Heart(self)
         self.heart.random_position()
-        
+
     def on_key_press(self,key,key_modifiers):
         if(key == arcade.key.UP):
             self.snake.direction = DIR_UP
