@@ -31,9 +31,19 @@ class Snake:
 
         self.body = [(x,y),(x-Snake.BLOCK_SIZE,y),(x-2*Snake.BLOCK_SIZE,y)]
         self.length = 3
-
+        self.has_eaten = False
         self.direction = DIR_RIGHT
         self.wait_time = 0
+
+    def add_snake_body(self):
+        if(self.has_eaten):
+            self.length += 1
+            self.body.insert(0,(self.x,self.y))
+            self.has_eaten = False
+
+    def is_can_eat(self,Heart):
+        if(self.x == Heart.x and self.y == Heart.y):
+            return True
 
     def out_of_edge(self):
 
@@ -81,3 +91,7 @@ class World:
 
     def update(self,delta):
         self.snake.update(delta)
+        if(self.snake.is_can_eat(self.heart)):
+            self.snake.has_eaten = True
+            self.heart.random_position()
+            self.snake.add_snake_body()
