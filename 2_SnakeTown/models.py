@@ -9,6 +9,16 @@ DIR_OFFSET = {DIR_UP:(0,1),
               DIR_RIGHT:(1,0),
               DIR_DOWN:(0,-1),
               DIR_LEFT:(-1,0)}
+class Heart:
+    def __init__(self,world):
+        self.world = world
+        self.x = 0
+        self.y = 0
+    def random_position(self):
+        centerX = self.world.width//2
+        centerY = self.world.height//2
+        self.x = centerX + randint(-15,15)*Snake.BLOCK_SIZE
+        self.y = centerY + randint(-15,15)*Snake.BLOCK_SIZE
 
 class Snake:
     BLOCK_SIZE = 16
@@ -54,7 +64,9 @@ class World:
         self.width = width
         self.height = height
         self.snake = Snake(self,width//2,height//2)
-
+        self.heart = Heart(self)
+        self.heart.random_position()
+        
     def on_key_press(self,key,key_modifiers):
         if(key == arcade.key.UP):
             self.snake.direction = DIR_UP
